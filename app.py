@@ -92,7 +92,8 @@ def shooting_method(u2_initial_guess, p):
 def initial_value(p):
     closest_u2 = None
     closest_diff = float('inf')
-    for u2_initial_guess in range(100):
+    x = np.linspace(0,7,100)
+    for u2_initial_guess in x:
         final_u1 = shooting_method(u2_initial_guess, p)
         diff = abs(final_u1 - 1)
         if diff < closest_diff:
