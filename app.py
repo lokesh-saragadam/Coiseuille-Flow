@@ -191,6 +191,6 @@ st.plotly_chart(fig_implicit)
 # Display maximum error for BVP solution with larger, green text
 max_error_bvp = np.max(np.abs(u_numeric_bvp - u_analytic))
 st.markdown(
-    f"<span style='color:green; font-size:20px;'>Maximum absolute error (BVP vs Analytical): {max_error_bvp:.2e}</span>",
+    f"<span style='color:yellow; font-size:20px;'>Maximum absolute error (BVP vs Analytical): {max_error_bvp:.2e}</span>",
     unsafe_allow_html=True
 )
