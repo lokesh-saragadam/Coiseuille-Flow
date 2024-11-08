@@ -126,30 +126,44 @@ u_implicit, _ = IVP_Implicit(P, h)
 # Create y array for IVP solutions
 y_ivp = np.linspace(0, 1, len(u_explicit))
 
-# Create interactive plots with Plotly
-fig = go.Figure()
-
 # BVP Solution Plot
-fig.add_trace(go.Scatter(x=y_bvp, y=u_numeric_bvp, mode='lines+markers', name='Numerical (BVP)', marker=dict(size=5)))
-fig.add_trace(go.Scatter(x=y_bvp, y=u_analytic, mode='lines', name='Analytical'))
-
-# Explicit Euler Solution Plot
-fig.add_trace(go.Scatter(x=y_ivp, y=u_explicit, mode='lines+markers', name='Explicit Euler (IVP)', marker=dict(size=5)))
-
-# Implicit Euler Solution Plot
-fig.add_trace(go.Scatter(x=y_ivp, y=u_implicit, mode='lines+markers', name='Implicit Euler (IVP)', marker=dict(size=5)))
-
-# Configure the layout of the interactive plot
-fig.update_layout(
-    title="Solutions for Couette-Poiseuille Flow",
+fig_bvp = go.Figure()
+fig_bvp.add_trace(go.Scatter(x=y_bvp, y=u_numeric_bvp, mode='lines+markers', name='Numerical (BVP)', marker=dict(size=5)))
+fig_bvp.add_trace(go.Scatter(x=y_bvp, y=u_analytic, mode='lines', name='Analytical'))
+fig_bvp.update_layout(
+    title="BVP Solution",
     xaxis_title="y",
     yaxis_title="u",
     hovermode="x unified",
     template="plotly_dark"
 )
+st.plotly_chart(fig_bvp)
 
-# Display the interactive Plotly graph
-st.plotly_chart(fig)
+# Explicit Euler Solution Plot
+fig_explicit = go.Figure()
+fig_explicit.add_trace(go.Scatter(x=y_ivp, y=u_explicit, mode='lines+markers', name='Explicit Euler (IVP)', marker=dict(size=5)))
+fig_explicit.add_trace(go.Scatter(x=y_bvp, y=u_analytic, mode='lines', name='Analytical'))
+fig_explicit.update_layout(
+    title="Explicit Euler Solution (IVP)",
+    xaxis_title="y",
+    yaxis_title="u",
+    hovermode="x unified",
+    template="plotly_dark"
+)
+st.plotly_chart(fig_explicit)
+
+# Implicit Euler Solution Plot
+fig_implicit = go.Figure()
+fig_implicit.add_trace(go.Scatter(x=y_ivp, y=u_implicit, mode='lines+markers', name='Implicit Euler (IVP)', marker=dict(size=5)))
+fig_implicit.add_trace(go.Scatter(x=y_bvp, y=u_analytic, mode='lines', name='Analytical'))
+fig_implicit.update_layout(
+    title="Implicit Euler Solution (IVP)",
+    xaxis_title="y",
+    yaxis_title="u",
+    hovermode="x unified",
+    template="plotly_dark"
+)
+st.plotly_chart(fig_implicit)
 
 # Display maximum error for BVP solution with larger, green text
 max_error_bvp = np.max(np.abs(u_numeric_bvp - u_analytic))
