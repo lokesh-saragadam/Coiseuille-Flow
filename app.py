@@ -36,6 +36,7 @@ def display_equations():
     st.latex(r"""
         \mathbf{u}' = \mathbf{A} \mathbf{u} + \mathbf{b}
     """)
+    st.write("The Jacobian is matrix A")
     st.latex(r"""
         \mathbf{A} = \begin{bmatrix}
         0 & 1 \\
