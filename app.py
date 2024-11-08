@@ -32,7 +32,7 @@ def display_equations():
     st.latex(r"""
         \mathbf{A} \mathbf{u} = \mathbf{b}
     """)
-     st.write("In matrix form:")
+    st.write("In matrix form:")
     st.latex(r"""
         \mathbf{u}' = \mathbf{A} \mathbf{u} + \mathbf{b}
     """)
