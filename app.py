@@ -130,7 +130,7 @@ display_equations()
 # Display eigenvalues of the Jacobian matrix in larger, green text
 eigenvalues = jacobian_eigenvalues()
 st.markdown(
-    f"<span style='color:green; font-size:24px;'>Eigenvalues: {eigenvalues}</span>",
+    f"<span style='color:green; font-size:24px;'>Eigenvalues of the Jacobian {A} : {eigenvalues}</span>",
     unsafe_allow_html=True
 )
 
