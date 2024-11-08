@@ -29,6 +29,27 @@ def display_equations():
     st.latex(r"""
         A u = b
     """)
+    st.latex(r"""
+        \mathbf{A} \mathbf{u} = \mathbf{b}
+    """)
+     st.write("In matrix form:")
+    st.latex(r"""
+        \mathbf{u}' = \mathbf{A} \mathbf{u} + \mathbf{b}
+    """)
+    st.latex(r"""
+        \mathbf{A} = \begin{bmatrix}
+        0 & 1 \\
+        0 & 0 \\
+        \end{bmatrix}, \quad
+        \mathbf{u} = \begin{bmatrix}
+        u_1 \\
+        u_2 \\
+        \end{bmatrix}, \quad
+        \mathbf{b} = \begin{bmatrix}
+        0 \\
+        -P \\
+        \end{bmatrix}
+    """)
 
 # Define the analytical solution function
 def analytical_solution(y, P):
