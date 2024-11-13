@@ -1,11 +1,33 @@
 import streamlit as st
 import numpy as np
 import plotly.graph_objs as go  # Import plotly graph objects
+import pandas as pd
 
 # Define the Jacobian matrix and calculate eigenvalues
+def UL_eigen (A, iters= 5000,tol = 1e-15):
+    m,n = A.shape 
+    I = np.identity (np.shape(A)[0])
+    shift_A = shift(A) + 1
+    A = A + I * (shift_A)
+    
+    D1 = A ; D2 = np.ones(np.shape(A))
+    k=0
+    i=0
+    
+    while (np.allclose(np.diagonal (D1), np.diagonal (D2), tol)==False) and i<=iters:
+        L,U = lud(D1)
+        D2 = np.matmul (U,L)
+        
+        if (np.allclose(np.diagonal (D1), np.diagonal (D2), tol)==True):
+            return np.round(np.diagonal(D2) -(shift_A),3)
+            
+        D1 = D2
+        D2 = np.zeros((m,n))
+        i+=1
+
 def jacobian_eigenvalues():
     A = np.array([[0, 1], [0, 0]])  # Jacobian matrix for this system
-    eigenvalues = np.linalg.eigvals(A)
+    eigenvalues = UL_eigen(A)
     return eigenvalues
 
 # Display equations used in the model
