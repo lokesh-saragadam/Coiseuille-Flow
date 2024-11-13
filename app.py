@@ -3,9 +3,30 @@ import numpy as np
 import plotly.graph_objs as go  # Import plotly graph objects
 
 # Define the Jacobian matrix and calculate eigenvalues
+def UL_eigen (A, iters= 5000,tol = 1e-15):
+    m,n = A.shape 
+    I = np.identity (np.shape(A)[0])
+    shift_A = shift(A) + 1
+    A = A + I * (shift_A)
+    
+    D1 = A ; D2 = np.ones(np.shape(A))
+    k=0
+    i=0
+    
+    while (np.allclose(np.diagonal (D1), np.diagonal (D2), tol)==False) and i<=iters:
+        L,U = lud(D1)
+        D2 = np.matmul (U,L)
+        
+        if (np.allclose(np.diagonal (D1), np.diagonal (D2), tol)==True):
+            return np.round(np.diagonal(D2) -(shift_A),3)
+            
+        D1 = D2
+        D2 = np.zeros((m,n))
+        i+=1
+
 def jacobian_eigenvalues():
     A = np.array([[0, 1], [0, 0]])  # Jacobian matrix for this system
-    eigenvalues = np.linalg.eigvals(A)
+    eigenvalues = UL_eigen(A)
     return eigenvalues
 
 # Display equations used in the model
@@ -131,7 +152,7 @@ display_equations()
 # Display eigenvalues of the Jacobian matrix in larger, green text
 eigenvalues = jacobian_eigenvalues()
 st.markdown(
-    f"<span style='color:yellow; font-size:24px;'>Eigenvalues of the Jacobian: {eigenvalues}</span>",
+    f"<span style='color:green; font-size:24px;'>Eigenvalues of the Jacobian: {eigenvalues}</span>",
     unsafe_allow_html=True
 )
 
@@ -191,6 +212,6 @@ st.plotly_chart(fig_implicit)
 # Display maximum error for BVP solution with larger, green text
 max_error_bvp = np.max(np.abs(u_numeric_bvp - u_analytic))
 st.markdown(
-    f"<span style='color:yellow; font-size:20px;'>Maximum absolute error (BVP vs Analytical): {max_error_bvp:.2e}</span>",
+    f"<span style='color:green; font-size:20px;'>Maximum absolute error (BVP vs Analytical): {max_error_bvp:.2e}</span>",
     unsafe_allow_html=True
 )
