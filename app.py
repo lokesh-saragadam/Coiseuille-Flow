@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import plotly.graph_objs as go  # Import plotly graph objects
+import pandas as pd
 
 # Define the Jacobian matrix and calculate eigenvalues
 def UL_eigen (A, iters= 5000,tol = 1e-15):
