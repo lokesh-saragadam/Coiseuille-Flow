@@ -7,7 +7,7 @@ import pandas as pd
 def UL_eigen (A, iters= 5000,tol = 1e-15):
     m,n = A.shape 
     I = np.identity (np.shape(A)[0])
-    shift_A = shift(A) + 1
+    shift_A = pd.shift(A) + 1
     A = A + I * (shift_A)
     
     D1 = A ; D2 = np.ones(np.shape(A))
